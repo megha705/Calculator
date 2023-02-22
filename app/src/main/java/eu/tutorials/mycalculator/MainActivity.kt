@@ -8,32 +8,122 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
     // Represent whether the lastly pressed key is numeric or not
-    var lastNumeric: Boolean = false
+    private var lastNumeric: Boolean = false
+
+    private lateinit var btnOne: Button
+    private lateinit var btnTwo: Button
+    private lateinit var btnThree: Button
+    private lateinit var btnFour: Button
+    private lateinit var btnFive: Button
+    private lateinit var btnSix: Button
+    private lateinit var btnSeven: Button
+    private lateinit var btnEight: Button
+    private lateinit var btnNine: Button
+    private lateinit var btnZero: Button
+    private lateinit var btnClr: Button
+    private lateinit var btnMinus: Button
+    private lateinit var btnEquals: Button
+    private lateinit var btnMulti: Button
+    private lateinit var btnAdd: Button
+    private lateinit var btnDot: Button
+    private lateinit var btnDivide: Button
 
     // If true, do not allow to add another DOT
     var lastDot: Boolean = false
 
-   private var tvInput:TextView?=null
+    private var tvInput: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         tvInput = findViewById(R.id.tvInput)
+        btnOne = findViewById(R.id.btnOne)
+        btnTwo = findViewById(R.id.btnTwo)
+        btnThree = findViewById(R.id.btnThree)
+        btnFour = findViewById(R.id.btnFour)
+        btnFive = findViewById(R.id.btnFive)
+        btnSix = findViewById(R.id.btnSix)
+        btnSeven = findViewById(R.id.btnSeven)
+        btnEight = findViewById(R.id.btnEight)
+        btnNine = findViewById(R.id.btnNine)
+        btnZero = findViewById(R.id.btnZero)
+        btnAdd = findViewById(R.id.btnAdd)
+        btnMinus = findViewById(R.id.btnSubtract)
+        btnDivide = findViewById(R.id.btnDivide)
+        btnMulti = findViewById(R.id.btnMultiply)
+        btnDot = findViewById(R.id.btnDecimal)
+        btnClr = findViewById(R.id.btnClear)
+        btnEquals = findViewById(R.id.btnEqual)
+
+        btnOne.setOnClickListener {
+            onDigit(it)
+        }
+        btnTwo.setOnClickListener {
+            onDigit(it)
+        }
+        btnThree.setOnClickListener {
+            onDigit(it)
+        }
+        btnFour.setOnClickListener {
+            onDigit(it)
+        }
+        btnFive.setOnClickListener {
+            onDigit(it)
+        }
+        btnSix.setOnClickListener {
+            onDigit(it)
+        }
+        btnSeven.setOnClickListener {
+            onDigit(it)
+        }
+        btnEight.setOnClickListener {
+            onDigit(it)
+        }
+        btnNine.setOnClickListener {
+            onDigit(it)
+        }
+        btnZero.setOnClickListener {
+            onDigit(it)
+        }
+        btnEquals.setOnClickListener {
+            onEqual()
+        }
+        btnClr.setOnClickListener {
+            onClear(it)
+        }
+        btnDot.setOnClickListener {
+            onDecimalPoint()
+        }
+        btnAdd.setOnClickListener {
+            onOperator(it)
+        }
+
+        btnMulti.setOnClickListener {
+            onOperator(it)
+        }
+
+        btnMinus.setOnClickListener {
+            onOperator(it)
+        }
+        btnDivide.setOnClickListener {
+            onOperator(it)
+        }
     }
 
-    fun onDigit(view: View){
-     tvInput?.append((view as Button).text)
+    fun onDigit(view: View) {
+        tvInput?.append((view as Button).text)
         lastNumeric = true
     }
 
-    fun onClear(view: View){
-    tvInput?.text = ""
+    fun onClear(view: View) {
+        tvInput?.text = ""
         lastNumeric = false
         lastDot = false
     }
+
     /**
      * Append . to the TextView
      */
-    fun onDecimalPoint(view: View) {
+    fun onDecimalPoint() {
 
         // If the last appended value is numeric then append(".") or don't.
         if (lastNumeric && !lastDot) {
@@ -60,7 +150,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Calculate the output
      */
-    fun onEqual(view: View) {
+    fun onEqual() {
         // If the last input is a number only, solution can be found.
         if (lastNumeric) {
             // Read the textView value
@@ -90,7 +180,8 @@ class MainActivity : AppCompatActivity() {
                         /*Here as the value one and two will be calculated based on the operator and
                                 if the result contains the zero after decimal point will remove it.
                                 And display the result to TextView*/
-                        tvInput?.text = removeZeroAfterDot((one.toDouble() / two.toDouble()).toString())
+                        tvInput?.text =
+                            removeZeroAfterDot((one.toDouble() / two.toDouble()).toString())
                     }
                     tvValue.contains("*") -> {
                         // If the inputValue contains the Multiplication operator
@@ -105,10 +196,11 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         /** Here as the value one and two will be calculated based on the operator and
-                                if the result contains the zero after decimal point will remove it.
-                                And display the result to TextView
+                        if the result contains the zero after decimal point will remove it.
+                        And display the result to TextView
                          */
-                        tvInput?.text = removeZeroAfterDot((one.toDouble() * two.toDouble()).toString())
+                        tvInput?.text =
+                            removeZeroAfterDot((one.toDouble() * two.toDouble()).toString())
                     }
                     tvValue.contains("-") -> {
 
@@ -124,10 +216,11 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         /** Here as the value one and two will be calculated based on the operator and
-                                if the result contains the zero after decimal point will remove it.
-                                And display the result to TextView
+                        if the result contains the zero after decimal point will remove it.
+                        And display the result to TextView
                          */
-                        tvInput?.text = removeZeroAfterDot((one.toDouble() - two.toDouble()).toString())
+                        tvInput?.text =
+                            removeZeroAfterDot((one.toDouble() - two.toDouble()).toString())
                     }
                     tvValue.contains("+") -> {
                         // If the inputValue contains the Addition operator
@@ -142,10 +235,11 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         /**Here as the value one and two will be calculated based on the operator and
-                                if the result contains the zero after decimal point will remove it.
-                                And display the result to TextView
+                        if the result contains the zero after decimal point will remove it.
+                        And display the result to TextView
                          */
-                        tvInput?.text = removeZeroAfterDot((one.toDouble() + two.toDouble()).toString())
+                        tvInput?.text =
+                            removeZeroAfterDot((one.toDouble() + two.toDouble()).toString())
                     }
                 }
             } catch (e: ArithmeticException) {
